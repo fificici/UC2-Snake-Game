@@ -2,10 +2,10 @@ const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
 let tileSize = 20
-let snake = [{x: 10, y:10}]
+let snake = [{x: 10, y: 10}]
 let dx = 0
 let dy = 0
-let food = [{x: 15, y:15}]
+let food = {x: 15, y: 15}  // Corrigido para um objeto
 let gameOver = false
 let paused = false
 
@@ -25,18 +25,21 @@ function drawFood () {
 
 function moveSnake () {
     if (!paused) {
-        const head = { x: snake[0].x + dx, y: snake[0] + dy}
+        const head = { x: snake[0].x + dx, y: snake[0].y + dy }
         snake.unshift(head)
+
         if (head.x === food.x && head.y === food.y) {
-       } else {
-           snake.pop()
-       }
-       if (checkCollision()) {
-          gameOver = true
-          setTimeout(() => {
-            location.reload()
-          }, 5000)
-       }
+            generateFood()  // Gera comida nova após comer
+        } else {
+            snake.pop()
+        }
+
+        if (checkCollision()) {
+            gameOver = true
+            setTimeout(() => {
+                location.reload()
+            }, 5000)
+        }
     }
 }
 
@@ -65,18 +68,19 @@ function update() {
 
 function checkCollision () {
     let head = snake[0]
-    for (let i =  1; i < snake.length; i++) {
-        if (snake[i].x === head.x && snake[i.y === head.y]) {
+    // Verifica colisão com o próprio corpo
+    for (let i = 1; i < snake.length; i++) {
+        if (snake[i].x === head.x && snake[i].y === head.y) {
             return true
         }
     }
+    // Verifica colisão com as bordas
     return head.x < 0 || head.x >= canvas.width / tileSize || head.y < 0 || head.y >= canvas.height / tileSize
 }
 
 function main () {
     update()
 }
-
 
 document.addEventListener('keydown', e => {
     if (!gameOver && !paused) {
@@ -111,7 +115,7 @@ document.addEventListener('keydown', e => {
 let pause = document.getElementById('pause')
 pause.addEventListener('click', () => {
     paused = !paused
-    pause.textContext = paused ? 'Resume' : 'Pause'
+    pause.textContent = paused ? 'Resume' : 'Pause'  // Corrigido para textContent
 })
 
 main()
