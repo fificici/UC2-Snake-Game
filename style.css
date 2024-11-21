@@ -1,0 +1,37 @@
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+button {
+    background-color: rgb(11, 11, 11);
+    color: ghostwhite;
+    border-color: cyan;
+    margin-top: 8px;
+    font-size: 16px;
+    border-radius: 50px;
+    margin-bottom: 8px;
+    margin-left: 16px;
+    padding: 8px;
+}
+
+button:hover {
+    background-color: rgb(25, 25, 25);
+}
+
+.game-container {
+    display: block;
+    border: 2px solid ghostwhite;
+}
+
+canvas {
+    display: block;
+    border: 2px solid ghostwhite;
+    background-color: rgb(11, 11, 11);
+}
+
